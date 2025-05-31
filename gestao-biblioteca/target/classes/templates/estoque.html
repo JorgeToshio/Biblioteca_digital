@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Estoque 📦</title>
+</head>
+<body>
+
+<h1>Controle de Estoque 📦</h1>
+
+<!-- Exibir mensagens de status -->
+<div th:if="${mensagem}">
+    <p th:utext="${mensagem}" style="color: red;"></p>
+</div>
+
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Livro</th>
+        <th>Quantidade Disponível</th>
+        <th>Alterar Quantidade</th>
+    </tr>
+    <tr th:each="controle : ${controleEstoque}">
+        <td th:text="${controle.id_estoque}"></td>
+        <td th:text="${controle.livro.titulo}"></td>
+        <td th:text="${controle.qtd_atual}"></td>
+        <td>
+            <form action="/estoque/atualizar" method="post">
+                <input type="hidden" name="id_estoque" th:value="${controle.id_estoque}">
+                <input type="number" name="qtd_nova" min="0" required>
+                <button type="submit">Atualizar</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<a href="/">Voltar para Home</a>
+
+</body>
+</html>

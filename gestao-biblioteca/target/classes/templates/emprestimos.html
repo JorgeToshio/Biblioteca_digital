@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Empréstimos</title>
+</head>
+
+<body>
+
+<h2>Realizar Empréstimo</h2>
+<form action="/emprestimos/emprestar" method="post">
+    <label for="id_livro">ID do Livro:</label>
+    <input type="number" id="id_livro" name="id_livro" required>
+
+    <label for="id_usuario">ID do Usuário:</label>
+    <input type="number" id="id_usuario" name="id_usuario" required>
+
+    <button type="submit">Emprestar Livro</button>
+</form>
+
+<!-- Exibir mensagens de status -->
+<div th:if="${mensagem}">
+    <p th:utext="${mensagem}" style="color: red;"></p>
+</div>
+
+
+<h1>Lista de Empréstimos 📖</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Usuário</th>
+        <th>Livro</th>
+        <th>Data de Empréstimo</th>
+        <th>Data de Devolução</th>
+        <th>Ação</th>
+    </tr>
+    <tr th:each="emprestimo : ${emprestimos}">
+        <td th:text="${emprestimo.id_emprestimo}"></td>
+        <td th:text="${emprestimo.usuario.nome}"></td>
+        <td th:text="${emprestimo.livro.titulo}"></td>
+        <td th:text="${emprestimo.data_emprestimo}"></td>
+        <td th:text="${emprestimo.data_devolucao}"></td>
+        <td>
+            <form action="/emprestimos/devolver" method="post">
+                <input type="hidden" name="id_emprestimo" th:value="${emprestimo.id_emprestimo}">
+                <button type="submit">Devolver Livro</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<a href="/">Voltar para Home</a>
+
+</body>
+</html>
