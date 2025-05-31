@@ -1,6 +1,0 @@
-# Ignorar arquivos e pastas desnecessárias
-target/
-.idea/
-.vscode/
-*.log
-application.properties
